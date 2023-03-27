@@ -11,7 +11,19 @@ import com.bayusurapati.appteman.data.entiy.User
 import kotlinx.android.synthetic.main.row_user.view.*
 
 class UserAdapter(var list: List<User>): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
-    class ViewHolder(view: View):RecyclerView.ViewHolder(view){
+    private lateinit var dialog: Dialog
+
+    fun setDialog(dialog: Dialog){
+        this.dialog = dialog
+    }
+
+    interface Dialog{
+        fun onClick(position: Int){
+
+        }
+    }
+
+    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         var fullName: TextView
         var email: TextView
         var kelamin: TextView
@@ -23,6 +35,10 @@ class UserAdapter(var list: List<User>): RecyclerView.Adapter<UserAdapter.ViewHo
             kelamin = view.kelamin
             telepon = view.telepon
             alamat = view.alamat
+
+            view.setOnClickListener{
+                dialog.onClick(layoutPosition)
+            }
         }
     }
 
